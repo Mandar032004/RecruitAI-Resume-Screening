@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { Search, Filter, User, CheckCircle, XCircle, Clock, TrendingUp, ChevronUp, ChevronDown, Upload, Trash2, RefreshCw, Mail, Phone, Award } from 'lucide-react';
 
 const STATUS_CONFIG = {
@@ -200,7 +200,7 @@ export default function DashboardPage() {
     const fetchCandidates = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('/api/candidates');
+            const res = await api.get('/api/candidates');
             setCandidates(res.data.candidates || []);
         } catch {
             setCandidates([]);
@@ -213,7 +213,7 @@ export default function DashboardPage() {
 
     const handleStatusChange = async (id, status) => {
         try {
-            await axios.put(`/api/candidates/${id}/status`, { status });
+            await api.put(`/api/candidates/${id}/status`, { status });
             setCandidates(prev => prev.map(c => c.id === id ? { ...c, status } : c));
         } catch { }
     };

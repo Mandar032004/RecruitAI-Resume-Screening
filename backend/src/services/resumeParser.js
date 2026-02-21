@@ -1,4 +1,11 @@
-const pdfParse = require('pdf-parse');
+// Fix: pdf-parse v1.1.1 has a bug that tries to load a test file on require()
+// Using the internal lib path bypasses this issue
+let pdfParse;
+try {
+    pdfParse = require('pdf-parse/lib/pdf-parse');
+} catch (e) {
+    pdfParse = require('pdf-parse');
+}
 const mammoth = require('mammoth');
 const { allSkills } = require('../data/skillsDb');
 

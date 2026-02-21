@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { Upload, FileText, Briefcase, CheckCircle, AlertCircle, Brain, Sparkles, X, Loader } from 'lucide-react';
 
 const ANALYSIS_STEPS = [
@@ -118,7 +118,7 @@ export default function UploadPage() {
             formData.append('resume', file);
             formData.append('jobDescription', jd);
 
-            const res = await axios.post('/api/analyze', formData, {
+            const res = await api.post('/api/analyze', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
                 timeout: 30000,
             });
